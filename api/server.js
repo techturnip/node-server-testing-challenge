@@ -12,7 +12,9 @@ server.use(express.json())
 server.use(cors())
 // ROOT ENDPOINT ==================================|
 // ================================================|
-
+server.get('/', (req, res) => {
+  res.status(200).json({ api: 'is running' })
+})
 // EXPORT =========================================|
 // ================================================|
 module.exports = server
