@@ -26,15 +26,42 @@ describe('the tasks model', () => {
   // add() method ------------------------------|
   describe('the add method', () => {
     it('should add a task to the db', async () => {
-      // test setup
+      // define new task
       const newTask = { task: 'this is a new task' }
+
+      // add task to db with helper method
       await Tasks.add(newTask)
+
+      // check db for the added task
       const addedTask = await db('tasks')
         .where({ task: 'this is a new task' })
         .first()
 
+      // assertions
       expect(typeof addedTask).toBe('object')
       expect(addedTask).toEqual({ id: 1, task: 'this is a new task' })
+    })
+  })
+  // remove() method ---------------------------|
+  describe('the remove method', () => {
+    it('should remove a task from the db', async () => {
+      // add a task
+      const task = { task: 'this task is to be removed' }
+      await db('tasks').insert(task)
+
+      // check task was added
+      const taskList = await db('tasks')
+      const id = taskList[0].id
+      // assertion
+      expect(taskList.length).toBe(1)
+
+      // remove task with db helper method
+      await Tasks.remove(id)
+
+      // check task was removed
+      const newTaskList = await db('tasks')
+      // assertion
+      expect(newTaskList.length).toBe(0)
     })
   })
 })

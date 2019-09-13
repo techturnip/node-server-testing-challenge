@@ -12,9 +12,14 @@ const add = async task => {
 // ------------------------------------------------|
 const getAll = () => db('tasks').select('id', 'task')
 // ------------------------------------------------|
+const remove = id =>
+  db('tasks')
+    .where('id', id)
+    .del()
 // EXPORT =========================================|
 // ================================================|
 module.exports = {
   add,
-  getAll
+  getAll,
+  remove
 }
