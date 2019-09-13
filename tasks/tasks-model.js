@@ -5,9 +5,12 @@ const db = require('../data/dbConfig.js')
 // ------------------------------------------------|
 // DEFINE HELPER METHODS ==========================|
 // ================================================|
-const add = () => null
+const add = async task => {
+  const [id] = await db('tasks').insert(task)
+  return db('tasks').where({ id })
+}
 // ------------------------------------------------|
-const getAll = () => null
+const getAll = () => db('tasks').select('id', 'task')
 // ------------------------------------------------|
 // EXPORT =========================================|
 // ================================================|
