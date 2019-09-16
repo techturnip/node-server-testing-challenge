@@ -7,7 +7,9 @@ const db = require('../data/dbConfig.js')
 // ================================================|
 const add = async task => {
   const [id] = await db('tasks').insert(task)
-  return db('tasks').where({ id })
+  return db('tasks')
+    .where({ id })
+    .first()
 }
 // ------------------------------------------------|
 const getAll = () => db('tasks').select('id', 'task')
